@@ -1,0 +1,12 @@
+{
+  "description": "This extension is a easy way to add a note to a page.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gusenov/web-page-notes-extension.git"
+  },
+  "homepage": "https://github.com/gusenov/web-page-notes-extension#readme",
+  "license": "MIT",
+  "dependencies": {
+    "web-store": "0.0.2"
+  }
+}
