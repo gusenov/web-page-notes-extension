@@ -3,6 +3,19 @@
 (function () {
     'use strict';
     
+    // https://stackoverflow.com/a/39732154
+    chrome.runtime.onConnect.addListener(function (externalPort) {
+        externalPort.onDisconnect.addListener(function () {
+            // var ignoreError = chrome.runtime.lastError;
+            // chrome.extension.getBackgroundPage().console.log("onDisconnect");
+        });
+    });
+    
+    // https://stackoverflow.com/a/9310752/2289640
+    function escapeRegExp(text) {
+        return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+    }
+    
     chrome.contextMenus.removeAll();
     chrome.contextMenus.create({
         title: "Show Saved Notes...",
@@ -23,7 +36,7 @@
         if (tab) {
             lastTabId = tab.id;
             chrome.pageAction.show(lastTabId);
-            if (notesStorage.find("url", tab.url) !== -1) {
+            if (notesStorage.find("url", escapeRegExp(tab.url)) !== -1) {
                 chrome.pageAction.setIcon({ path: "icons.iconarchive.com/icons/fatcow/farm-fresh/16/note-edit-icon.png", tabId: tab.id });
             } else {
                 chrome.pageAction.setIcon({ path: "icons.iconarchive.com/icons/fatcow/farm-fresh/16/note-add-icon.png", tabId: tab.id });

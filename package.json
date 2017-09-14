@@ -7,6 +7,6 @@
   "homepage": "https://github.com/gusenov/web-page-notes-extension#readme",
   "license": "MIT",
   "dependencies": {
-    "web-store": "0.0.2"
+    "web-store": "0.0.3"
   }
 }
