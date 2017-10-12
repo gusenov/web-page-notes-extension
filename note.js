@@ -6,10 +6,14 @@
         return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
     }
     
+    function makeQuery(text) {
+        return '^' + escapeRegExp(text) + '$';
+    }
+    
     function setNote(notesStorage, tabUrl, noteText) {
         var nowDate = (new Date()).getTime(),
             page,
-            pageIdx = notesStorage.find("url", escapeRegExp(tabUrl));
+            pageIdx = notesStorage.find("url", makeQuery(tabUrl));
         
         if (pageIdx !== -1) {
             page = notesStorage.getRecordByIndex(pageIdx);
@@ -31,7 +35,7 @@
     function getNote(notesStorage, tabUrl) {
         var nowDate = (new Date()).getTime(),
             page,
-            pageIdx = notesStorage.find("url", escapeRegExp(tabUrl));
+            pageIdx = notesStorage.find("url", makeQuery(tabUrl));
         
         if (pageIdx !== -1) {
             page = notesStorage.getRecordByIndex(pageIdx);

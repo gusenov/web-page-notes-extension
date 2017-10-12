@@ -16,6 +16,10 @@
         return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
     }
     
+    function makeQuery(text) {
+        return '^' + escapeRegExp(text) + '$';
+    }
+    
     chrome.contextMenus.removeAll();
     chrome.contextMenus.create({
         title: "Show Saved Notes...",
@@ -36,7 +40,7 @@
         if (tab) {
             lastTabId = tab.id;
             chrome.pageAction.show(lastTabId);
-            if (notesStorage.find("url", escapeRegExp(tab.url)) !== -1) {
+            if (notesStorage.find("url", makeQuery(tab.url)) !== -1) {
                 chrome.pageAction.setIcon({ path: "icons.iconarchive.com/icons/fatcow/farm-fresh/16/note-edit-icon.png", tabId: tab.id });
             } else {
                 chrome.pageAction.setIcon({ path: "icons.iconarchive.com/icons/fatcow/farm-fresh/16/note-add-icon.png", tabId: tab.id });
